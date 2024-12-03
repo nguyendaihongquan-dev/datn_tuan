@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home"/>
+    <item
+        android:id="@+id/nav_device"
+        android:icon="@drawable/ic_device"
+        android:title="Device"/>
+    <item
+        android:id="@+id/nav_voice"
+        android:icon="@drawable/ic_voice"
+        android:title="Voice"/>
+    <item
+        android:id="@+id/nav_routine"
+        android:icon="@drawable/ic_routine"
+        android:title="Routine"/>
+    <item
+        android:id="@+id/nav_stats"
+        android:icon="@drawable/ic_stats"
+        android:title="Stats"/>
+</menu>
