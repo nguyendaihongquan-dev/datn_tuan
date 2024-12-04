@@ -5,7 +5,9 @@ import static com.hivemq.client.mqtt.MqttGlobalPublishFilter.ALL;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
@@ -18,21 +20,30 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MQTT_CLIENT";
-    private static final String HOST = "91f23c134c8849b5939188b245411169.s1.eu.hivemq.cloud";
-    private static final String USERNAME = "nguyenquan";
-    private static final String PASSWORD = "!@#QWEasdzxc123";
-    private static final String tempLiving = "0";
-    private static final String humiLiving = "0";
-    private static final String tempBedRoom = "0";
-    private static final String humiBedRoom = "0";
-    private static final List<String> listTopic = Arrays.asList("living/light","living/stair", "door/control", "BaoChay","bedroom/temperature","bedroom/humidity","bedroom/curtain","bedroom/light","bedroom/fan","kitchen/gas/gasThreshold","kitchen/gas/warning");
+    private static final String HOST = "50a989b3f1d24fbfa84a1e80f65a0e0a.s1.eu.hivemq.cloud";
+    private static final String USERNAME = "tuan.pa203636";
+    private static final String PASSWORD = "Matkhau123";
+    private static String tempLiving = "0";
+    private static  String humiLiving = "0";
+    private static  String tempBedRoom = "0";
+    private static  String humiBedRoom = "0";
+    private static  List<String> listTopic = Arrays.asList("living/humidity","living/temperature","living/light","living/stair", "door/control", "BaoChay","bedroom/temperature","bedroom/humidity","bedroom/curtain","bedroom/light","bedroom/fan","kitchen/gas/gasThreshold","kitchen/gas/warning");
     private Mqtt5BlockingClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView textTempLiving = findViewById(R.id.tempLiving);
+        textTempLiving.setText(tempLiving);
+        TextView textHumiLiving = findViewById(R.id.humiLiving);
+        textHumiLiving.setText(humiLiving);
+        TextView textTempBedRoom = findViewById(R.id.tempBedRoom);
+        textTempBedRoom.setText(tempBedRoom);
+        TextView textHumiBedRoom = findViewById(R.id.humiBedRoom);
+        textHumiBedRoom.setText(humiBedRoom);
 
+        // mqtt
         new Thread(this::connectMqtt).start();
         SwitchCompat buttonLedLiving = findViewById(R.id.livingLight);
         buttonLedLiving.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -54,6 +65,44 @@ public class MainActivity extends AppCompatActivity {
             String message = isChecked ? "true" : "false";;
             publishMessage(message, "bedroom/fan");
         });
+        SwitchCompat buttonStairBedLiving= findViewById(R.id.stairLiving);
+        buttonStairBedLiving.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            String message = isChecked ? "true" : "false";;
+            publishMessage(message, "living/stair");
+        });
+        SwitchCompat buttonFire= findViewById(R.id.buttonFire);
+        buttonFire.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            String message = isChecked ? "true" : "false";;
+            publishMessage(message, "BaoChay");
+        });
+        Button button1 = findViewById(R.id.button1);
+        Button button2 = findViewById(R.id.button2);
+        Button button3 = findViewById(R.id.button3);
+        button1.setOnClickListener(v ->
+                publishMessage("1", "bedroom/curtain")
+        );
+
+        button2.setOnClickListener(v ->
+                publishMessage("2", "bedroom/curtain")
+        );
+
+        button3.setOnClickListener(v ->
+                publishMessage("3", "bedroom/curtain")
+        );
+        Button gas1 = findViewById(R.id.gas1);
+        Button gas2 = findViewById(R.id.gas2);
+        Button gas3 = findViewById(R.id.gas3);
+        button1.setOnClickListener(v ->
+                publishMessage("1500", "kitchen/gas/gasThreshold")
+        );
+
+        button2.setOnClickListener(v ->
+                publishMessage("3000", "kitchen/gas/gasThreshold")
+        );
+
+        button3.setOnClickListener(v ->
+                publishMessage("4095", "kitchen/gas/gasThreshold")
+        );
 //        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 //        bottomNav.setOnItemSelectedListener(item -> {
 //            int itemId = item.getItemId();
@@ -132,6 +181,34 @@ public class MainActivity extends AppCompatActivity {
                             } else if(message.contains("{\"door_status\":true}")){
                                 SwitchCompat switchCompat = findViewById(R.id.livingDoor);
                                 switchCompat.setChecked(true);
+                            }else if(message.contains("{\"fire_detected\":true}")){
+                                runOnUiThread(() -> {
+                                    // Tạo AlertDialog Builder
+                                    new AlertDialog.Builder(MainActivity.this)
+                                            .setTitle("Cảnh báo hỏa hoạn")
+                                            .setMessage("Phát hiện cháy! Vui lòng kiểm tra ngay.")
+                                            .setIcon(android.R.drawable.ic_dialog_alert) // Icon mặc định
+                                            .setPositiveButton("OK", (dialog, which) -> {
+                                                // Hành động khi bấm OK, nếu cần
+                                                dialog.dismiss();
+                                            })
+                                            .setCancelable(false) // Không cho phép tắt bằng cách bấm ra ngoài
+                                            .show();
+                                });
+                            }else if(message.contains("{\"smoke_detected\":true}")){
+                                runOnUiThread(() -> {
+                                    // Tạo AlertDialog Builder
+                                    new AlertDialog.Builder(MainActivity.this)
+                                            .setTitle("Cảnh báo khói")
+                                            .setMessage("Phát hiện khói! Vui lòng kiểm tra ngay.")
+                                            .setIcon(android.R.drawable.ic_dialog_alert) // Icon mặc định
+                                            .setPositiveButton("OK", (dialog, which) -> {
+                                                // Hành động khi bấm OK, nếu cần
+                                                dialog.dismiss();
+                                            })
+                                            .setCancelable(false) // Không cho phép tắt bằng cách bấm ra ngoài
+                                            .show();
+                                });
                             }
                             break;
                         case "bedroom/light":
@@ -152,8 +229,48 @@ public class MainActivity extends AppCompatActivity {
                                 switchCompat.setChecked(true);
                             }
                             break;
-                        case "bedroom/fan":
+                        case "living/stair":
+                            if (message.contains("false")) {
+                                SwitchCompat switchCompat = findViewById(R.id.stairLiving);
+                                switchCompat.setChecked(false); // Gạt lại SwitchCompat về trạng thái OFF
+                            } else if(message.contains("true")){
+                                SwitchCompat switchCompat = findViewById(R.id.stairLiving);
+                                switchCompat.setChecked(true);
+                            }
+                            break;
+                        case "living/temperature":
+                            TextView textTempLiving = findViewById(R.id.tempLiving);
+                            textTempLiving.setText(message);
+                            break;
+                        case "living/humidity":
+                            TextView textHumiLiving = findViewById(R.id.humiLiving);
+                            textHumiLiving.setText(message);
+                            break;
+                        case "bedroom/temperature":
+                            TextView textTempBedRoom = findViewById(R.id.tempBedRoom);
+                            textTempBedRoom.setText(message);
+                            break;
+                        case "bedroom/humidity":
+                            TextView textHumiBedRoom = findViewById(R.id.humiBedRoom);
+                            textHumiBedRoom.setText(message);
+                            break;
 
+                        case "kitchen/gas/warning":
+                            if(message.contains("true")){
+                                runOnUiThread(() -> {
+                                    // Tạo AlertDialog Builder
+                                    new AlertDialog.Builder(MainActivity.this)
+                                            .setTitle("Cảnh báo khí gas vượt ngưỡng")
+                                            .setMessage("Phát hiện khí gas! Vui lòng kiểm tra ngay.")
+                                            .setIcon(android.R.drawable.ic_dialog_alert) // Icon mặc định
+                                            .setPositiveButton("OK", (dialog, which) -> {
+                                                // Hành động khi bấm OK, nếu cần
+                                                dialog.dismiss();
+                                            })
+                                            .setCancelable(false) // Không cho phép tắt bằng cách bấm ra ngoài
+                                            .show();
+                                });
+                            }
                     }
                 });
             });

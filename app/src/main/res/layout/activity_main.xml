@@ -29,7 +29,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Good Morning, Tosin"
+                    android:text="Xin chào, Phan Tuấn"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:layout_alignParentStart="true"
@@ -67,10 +67,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Temperature"
+                            android:text="Nhiệt độ"
                             android:textColor="#FFFFFF"/>
 
                         <TextView
+                            android:id="@+id/tempLiving"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="25°C"
@@ -89,35 +90,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Humidity"
+                            android:text="Độ ẩm"
                             android:textColor="#FFFFFF"/>
 
                         <TextView
+                            android:id="@+id/humiLiving"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="80%"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <!-- Energy -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Energy Used"
-                            android:textColor="#FFFFFF"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="250 KWh"
                             android:textColor="#FFFFFF"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
@@ -142,45 +122,64 @@
 
                 <!-- Wake up card -->
                 <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
                     app:cardCornerRadius="12dp"
                     app:cardBackgroundColor="#1E88E5">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_wake_up"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <!-- Temperature -->
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Wake up"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp"
-                            android:layout_marginTop="8dp"/>
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="6:00 AM"
-                            android:textColor="#FFFFFF"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Nhiệt độ"
+                                android:textColor="#FFFFFF"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/tempBedRoom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="25°C"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <!-- Humidity -->
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="5 Devices"
-                            android:textColor="#FFFFFF"/>
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Độ ẩm"
+                                android:textColor="#FFFFFF"/>
+
+                            <TextView
+                                android:id="@+id/humiBedRoom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="80%"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
                 <!-- Sleep card -->
@@ -390,9 +389,170 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <!-- AC Device Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#F5F6FA">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_ac"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Đèn cầu thang"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phòng --"
+                            android:textColor="#666666"/>
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/stairLiving"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"/>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Smart TV Device Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#F5F6FA">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_ac"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Báo cháy"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phòng--"
+                            android:textColor="#666666"/>
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/buttonFire"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"/>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
             <!-- Bottom Navigation -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#D3D3D3"
+                android:padding="16dp">
+
+                <!-- Button 1 -->
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mức 1"
+                    android:textColor="#FFFFFF"
+                    android:background="@android:color/holo_blue_light"/>
+
+                <!-- Button 2 -->
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mức 2"
+                    android:textColor="#FFFFFF"
+                    android:background="@android:color/holo_green_light"/>
+
+                <!-- Button 3 -->
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mức 3"
+                    android:textColor="#FFFFFF"
+                    android:background="@android:color/holo_red_light"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#D3D3D3"
+                android:padding="16dp">
+
+                <!-- Button 1 -->
+                <Button
+                    android:id="@+id/gas1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Gas 1500"
+                    android:textColor="#FFFFFF"
+                    android:background="@android:color/holo_blue_light"/>
+
+                <!-- Button 2 -->
+                <Button
+                    android:id="@+id/gas2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Gas 3000"
+                    android:textColor="#FFFFFF"
+                    android:background="@android:color/holo_green_light"/>
+
+                <!-- Button 3 -->
+                <Button
+                    android:id="@+id/gas3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Gas 4095"
+                    android:textColor="#FFFFFF"
+                    android:background="@android:color/holo_red_light"/>
+            </LinearLayout>
 
 
         </LinearLayout>
