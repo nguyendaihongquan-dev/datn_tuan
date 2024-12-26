@@ -2,9 +2,13 @@ package com.example.datn_tuan;
 
 import static com.hivemq.client.mqtt.MqttGlobalPublishFilter.ALL;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,6 +22,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+//
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MQTT_CLIENT";
     private static final String HOST = "50a989b3f1d24fbfa84a1e80f65a0e0a.s1.eu.hivemq.cloud";
@@ -29,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static  String humiBedRoom = "0";
     private static  List<String> listTopic = Arrays.asList("living/humidity","living/temperature","living/light","living/stair", "door/control", "BaoChay","bedroom/temperature","bedroom/humidity","bedroom/curtain","bedroom/light","bedroom/fan","kitchen/gas/gasThreshold","kitchen/gas/warning");
     private Mqtt5BlockingClient client;
-
+    private StorageReference mStorageRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         button2.setOnClickListener(v ->
                 publishMessage("2", "bedroom/curtain")
+
         );
 
         button3.setOnClickListener(v ->
@@ -197,17 +208,18 @@ public class MainActivity extends AppCompatActivity {
                                 });
                             }else if(message.contains("{\"smoke_detected\":true}")){
                                 runOnUiThread(() -> {
+                                    showImageDialog();
                                     // Tạo AlertDialog Builder
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setTitle("Cảnh báo khói")
-                                            .setMessage("Phát hiện khói! Vui lòng kiểm tra ngay.")
-                                            .setIcon(android.R.drawable.ic_dialog_alert) // Icon mặc định
-                                            .setPositiveButton("OK", (dialog, which) -> {
-                                                // Hành động khi bấm OK, nếu cần
-                                                dialog.dismiss();
-                                            })
-                                            .setCancelable(false) // Không cho phép tắt bằng cách bấm ra ngoài
-                                            .show();
+//                                    new AlertDialog.Builder(MainActivity.this)
+//                                            .setTitle("Cảnh báo khói")
+//                                            .setMessage("Phát hiện khói! Vui lòng kiểm tra ngay.")
+//                                            .setIcon(android.R.drawable.ic_dialog_alert) // Icon mặc định
+//                                            .setPositiveButton("OK", (dialog, which) -> {
+//                                                // Hành động khi bấm OK, nếu cần
+//                                                dialog.dismiss();
+//                                            })
+//                                            .setCancelable(false) // Không cho phép tắt bằng cách bấm ra ngoài
+//                                            .show();
                                 });
                             }
                             break;
@@ -300,5 +312,37 @@ public class MainActivity extends AppCompatActivity {
         if (client != null) {
             client.disconnect();
         }
+    }
+    private void showImageDialog() {
+        // Tạo một Dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_image);
+        dialog.setCancelable(true);
+
+        // Tạo một ProgressBar để hiển thị trong lúc tải ảnh
+        final ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
+        final ImageView imageView = dialog.findViewById(R.id.imageView);
+
+        // Lấy ảnh từ Firebase Storage
+        StorageReference imageRef = mStorageRef.child("images/detection_latest.jpg");
+
+        // Sử dụng Picasso để tải ảnh và hiển thị
+        Picasso.get()
+                .load(String.valueOf(imageRef))
+                .into(imageView, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        progressBar.setVisibility(View.GONE);
+//                        imageView.setImageResource(R.drawable.error_image); // Nếu lỗi
+                    }
+                });
+
+        // Hiển thị Dialog
+        dialog.show();
     }
 }
