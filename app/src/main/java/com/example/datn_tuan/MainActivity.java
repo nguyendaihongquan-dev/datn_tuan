@@ -10,12 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 import com.hivemq.client.mqtt.MqttClient;
 import com.hivemq.client.mqtt.mqtt5.Mqtt5BlockingClient;
 import java.nio.charset.StandardCharsets;
@@ -34,16 +36,19 @@ public class MainActivity extends AppCompatActivity {
     private static final String USERNAME = "tuan.pa203636";
     private static final String PASSWORD = "Matkhau123";
     private static String tempLiving = "0";
-    private static  String humiLiving = "0";
-    private static  String tempBedRoom = "0";
-    private static  String humiBedRoom = "0";
-    private static  List<String> listTopic = Arrays.asList("living/humidity","living/temperature","living/light","living/stair", "door/control", "BaoChay","bedroom/temperature","bedroom/humidity","bedroom/curtain","bedroom/light","bedroom/fan","kitchen/gas/gasThreshold","kitchen/gas/warning");
+    private static String humiLiving = "0";
+    private static String tempBedRoom = "0";
+    private static String humiBedRoom = "0";
+    private static List<String> listTopic = Arrays.asList("living/humidity", "living/temperature", "living/light", "living/stair", "door/control", "BaoChay", "bedroom/temperature", "bedroom/humidity", "bedroom/curtain", "bedroom/light", "bedroom/fan", "kitchen/gas/gasThreshold", "kitchen/gas/warning");
     private Mqtt5BlockingClient client;
     private StorageReference mStorageRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseApp.initializeApp(this);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         TextView textTempLiving = findViewById(R.id.tempLiving);
         textTempLiving.setText(tempLiving);
         TextView textHumiLiving = findViewById(R.id.humiLiving);
@@ -65,24 +70,27 @@ public class MainActivity extends AppCompatActivity {
             String message = isChecked ? "{\"open_door\":true}" : "{\"close_door\":true}";
             publishMessage(message, "door/control");
         });
-        SwitchCompat buttonLedBedRoom= findViewById(R.id.bedroomLight);
+        SwitchCompat buttonLedBedRoom = findViewById(R.id.bedroomLight);
         buttonLedBedRoom.setOnCheckedChangeListener((buttonView, isChecked) -> {
             String message = isChecked ? "true" : "false";
             publishMessage(message, "bedroom/light");
         });
-        SwitchCompat buttonFanBedRoom= findViewById(R.id.bedroomFan);
+        SwitchCompat buttonFanBedRoom = findViewById(R.id.bedroomFan);
         buttonFanBedRoom.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            String message = isChecked ? "true" : "false";;
+            String message = isChecked ? "true" : "false";
+            ;
             publishMessage(message, "bedroom/fan");
         });
-        SwitchCompat buttonStairBedLiving= findViewById(R.id.stairLiving);
+        SwitchCompat buttonStairBedLiving = findViewById(R.id.stairLiving);
         buttonStairBedLiving.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            String message = isChecked ? "true" : "false";;
+            String message = isChecked ? "true" : "false";
+            ;
             publishMessage(message, "living/stair");
         });
-        SwitchCompat buttonFire= findViewById(R.id.buttonFire);
+        SwitchCompat buttonFire = findViewById(R.id.buttonFire);
         buttonFire.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            String message = isChecked ? "true" : "false";;
+            String message = isChecked ? "true" : "false";
+            ;
             publishMessage(message, "BaoChay");
         });
         Button button1 = findViewById(R.id.button1);
@@ -107,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
                 publishMessage("1500", "kitchen/gas/gasThreshold")
         );
 
-        button2.setOnClickListener(v ->
-                publishMessage("3000", "kitchen/gas/gasThreshold")
+        button2.setOnClickListener(v -> showImageDialog()
+//                publishMessage("3000", "kitchen/gas/gasThreshold")
         );
 
         button3.setOnClickListener(v ->
@@ -159,11 +167,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Connected successfully");
 
             // Subscribe to topic
-           for(int i =0;i<listTopic.size();i++){
-               client.subscribeWith()
-                       .topicFilter(listTopic.get(i))
-                       .send();
-           }
+            for (int i = 0; i < listTopic.size(); i++) {
+                client.subscribeWith()
+                        .topicFilter(listTopic.get(i))
+                        .send();
+            }
 //            client.subscribeWith()
 //                    .topicFilter(TOPIC)
 //                    .send();
@@ -180,19 +188,19 @@ public class MainActivity extends AppCompatActivity {
                             if (message.contains("false")) {
                                 SwitchCompat switchCompat = findViewById(R.id.livingLight);
                                 switchCompat.setChecked(false); // Gạt lại SwitchCompat về trạng thái OFF
-                            } else if(message.contains("true")){
+                            } else if (message.contains("true")) {
                                 SwitchCompat switchCompat = findViewById(R.id.livingLight);
                                 switchCompat.setChecked(true);
                             }
-                                break;
+                            break;
                         case "door/control":
                             if (message.contains("{\"door_status\":false}")) {
                                 SwitchCompat switchCompat = findViewById(R.id.livingDoor);
                                 switchCompat.setChecked(false); // Gạt lại SwitchCompat về trạng thái OFF
-                            } else if(message.contains("{\"door_status\":true}")){
+                            } else if (message.contains("{\"door_status\":true}")) {
                                 SwitchCompat switchCompat = findViewById(R.id.livingDoor);
                                 switchCompat.setChecked(true);
-                            }else if(message.contains("{\"fire_detected\":true}")){
+                            } else if (message.contains("{\"fire_detected\":true}")) {
                                 runOnUiThread(() -> {
                                     // Tạo AlertDialog Builder
                                     new AlertDialog.Builder(MainActivity.this)
@@ -206,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                                             .setCancelable(false) // Không cho phép tắt bằng cách bấm ra ngoài
                                             .show();
                                 });
-                            }else if(message.contains("{\"smoke_detected\":true}")){
+                            } else if (message.contains("{\"smoke_detected\":true}")) {
                                 runOnUiThread(() -> {
                                     showImageDialog();
                                     // Tạo AlertDialog Builder
@@ -227,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                             if (message.contains("false")) {
                                 SwitchCompat switchCompat = findViewById(R.id.bedroomLight);
                                 switchCompat.setChecked(false); // Gạt lại SwitchCompat về trạng thái OFF
-                            } else if(message.contains("true")){
+                            } else if (message.contains("true")) {
                                 SwitchCompat switchCompat = findViewById(R.id.bedroomLight);
                                 switchCompat.setChecked(true);
                             }
@@ -236,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                             if (message.contains("false")) {
                                 SwitchCompat switchCompat = findViewById(R.id.bedroomFan);
                                 switchCompat.setChecked(false); // Gạt lại SwitchCompat về trạng thái OFF
-                            } else if(message.contains("true")){
+                            } else if (message.contains("true")) {
                                 SwitchCompat switchCompat = findViewById(R.id.bedroomFan);
                                 switchCompat.setChecked(true);
                             }
@@ -245,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                             if (message.contains("false")) {
                                 SwitchCompat switchCompat = findViewById(R.id.stairLiving);
                                 switchCompat.setChecked(false); // Gạt lại SwitchCompat về trạng thái OFF
-                            } else if(message.contains("true")){
+                            } else if (message.contains("true")) {
                                 SwitchCompat switchCompat = findViewById(R.id.stairLiving);
                                 switchCompat.setChecked(true);
                             }
@@ -268,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                         case "kitchen/gas/warning":
-                            if(message.contains("true")){
+                            if (message.contains("true")) {
                                 runOnUiThread(() -> {
                                     // Tạo AlertDialog Builder
                                     new AlertDialog.Builder(MainActivity.this)
@@ -313,36 +321,62 @@ public class MainActivity extends AppCompatActivity {
             client.disconnect();
         }
     }
+
     private void showImageDialog() {
-        // Tạo một Dialog
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_image);
-        dialog.setCancelable(true);
+        try {
+            Log.d("ImageDialog", "Bắt đầu showImageDialog");
 
-        // Tạo một ProgressBar để hiển thị trong lúc tải ảnh
-        final ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
-        final ImageView imageView = dialog.findViewById(R.id.imageView);
+            // Tạo một Dialog
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.dialog_image);
+            dialog.setCancelable(true);
+            Log.d("ImageDialog", "Dialog được khởi tạo thành công");
 
-        // Lấy ảnh từ Firebase Storage
-        StorageReference imageRef = mStorageRef.child("images/detection_latest.jpg");
+            // Tạo một ProgressBar để hiển thị trong lúc tải ảnh
+            final ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
+            final ImageView imageView = dialog.findViewById(R.id.imageView);
+            Log.d("ImageDialog", "ProgressBar và ImageView được tìm thấy trong layout");
 
-        // Sử dụng Picasso để tải ảnh và hiển thị
-        Picasso.get()
-                .load(String.valueOf(imageRef))
-                .into(imageView, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        progressBar.setVisibility(View.GONE);
-                    }
+            // Lấy ảnh từ Firebase Storage
+            StorageReference imageRef = mStorageRef.child("images/detection_latest.jpg");
+            Log.d("ImageDialog", "StorageReference được khởi tạo: " + imageRef.getPath());
 
-                    @Override
-                    public void onError(Exception e) {
-                        progressBar.setVisibility(View.GONE);
-//                        imageView.setImageResource(R.drawable.error_image); // Nếu lỗi
-                    }
-                });
+            // Sử dụng Picasso để tải ảnh và hiển thị
+            imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                String downloadUrl = uri.toString();
+                Log.d("ImageDialog", "Download URL: " + downloadUrl);
 
-        // Hiển thị Dialog
-        dialog.show();
+                // Tải ảnh bằng Picasso
+                Picasso.get()
+                        .load(downloadUrl)
+                        .into(imageView, new com.squareup.picasso.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.d("ImageDialog", "Ảnh được tải thành công");
+                                progressBar.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                progressBar.setVisibility(View.GONE);
+                                Log.e("ImageDialog", "Lỗi khi tải ảnh bằng Picasso", e);
+//                                imageView.setImageResource(R.drawable.error_image); // Nếu lỗi
+                            }
+                        });
+            }).addOnFailureListener(e -> {
+                progressBar.setVisibility(View.GONE);
+                Log.e("ImageDialog", "Lỗi khi lấy download URL", e);
+                Toast.makeText(this, "Không thể tải ảnh từ Firebase Storage.", Toast.LENGTH_SHORT).show();
+            });
+
+
+            // Hiển thị Dialog
+            dialog.show();
+            Log.d("ImageDialog", "Dialog được hiển thị");
+        } catch (Exception e) {
+            // Log lỗi và thông báo
+            Log.e("ImageDialog", "Error showing image dialog: ", e);
+            Toast.makeText(this, "Đã xảy ra lỗi khi hiển thị ảnh.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
