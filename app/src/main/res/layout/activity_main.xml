@@ -206,7 +206,35 @@
                     <!-- Similar layout as Wake up card -->
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom= "20dp"
+                android:orientation="horizontal">
 
+                <!-- EditText -->
+                <EditText
+                    android:id="@+id/valueGas"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/outline_input_border"
+                    android:hint="Thiết lập giá trị cảnh báo"
+                    android:inputType="textEmailAddress" />
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="35dp"/>
+
+                <!-- Button -->
+                <Button
+                    android:id="@+id/sendValue"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="2"
+                    android:text="Thiết lập"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/button_style" />
+            </LinearLayout>
             <!-- Active Devices Section -->
             <TextView
                 android:layout_width="match_parent"
@@ -474,82 +502,8 @@
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
-            <!-- Bottom Navigation -->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="#D3D3D3"
-                android:padding="16dp">
 
-                <!-- Button 1 -->
-                <Button
-                    android:id="@+id/button1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Mức 1"
-                    android:textColor="#FFFFFF"
-                    android:background="@android:color/holo_blue_light"/>
-
-                <!-- Button 2 -->
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Mức 2"
-                    android:textColor="#FFFFFF"
-                    android:background="@android:color/holo_green_light"/>
-
-                <!-- Button 3 -->
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Mức 3"
-                    android:textColor="#FFFFFF"
-                    android:background="@android:color/holo_red_light"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="#D3D3D3"
-                android:padding="16dp">
-
-                <!-- Button 1 -->
-                <Button
-                    android:id="@+id/gas1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Gas 1500"
-                    android:textColor="#FFFFFF"
-                    android:background="@android:color/holo_blue_light"/>
-
-                <!-- Button 2 -->
-                <Button
-                    android:id="@+id/gas2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Gas 3000"
-                    android:textColor="#FFFFFF"
-                    android:background="@android:color/holo_green_light"/>
-
-                <!-- Button 3 -->
-                <Button
-                    android:id="@+id/gas3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Gas 4095"
-                    android:textColor="#FFFFFF"
-                    android:background="@android:color/holo_red_light"/>
-            </LinearLayout>
 
 
         </LinearLayout>

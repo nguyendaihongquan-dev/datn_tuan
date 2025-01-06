@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -93,59 +94,15 @@ public class MainActivity extends AppCompatActivity {
             ;
             publishMessage(message, "BaoChay");
         });
-        Button button1 = findViewById(R.id.button1);
-        Button button2 = findViewById(R.id.button2);
-        Button button3 = findViewById(R.id.button3);
-        button1.setOnClickListener(v ->
-                publishMessage("1", "bedroom/curtain")
+        Button button1 = findViewById(R.id.sendValue);
+        EditText gasValue = findViewById(R.id.valueGas);
+
+        button1.setOnClickListener(v -> {
+                    String gas = gasValue.getText().toString().trim();
+                    publishMessage(gas, "kitchen/gas/gasThreshold");
+                }
         );
 
-        button2.setOnClickListener(v ->
-                publishMessage("2", "bedroom/curtain")
-
-        );
-
-        button3.setOnClickListener(v ->
-                publishMessage("3", "bedroom/curtain")
-        );
-        Button gas1 = findViewById(R.id.gas1);
-        Button gas2 = findViewById(R.id.gas2);
-        Button gas3 = findViewById(R.id.gas3);
-        button1.setOnClickListener(v ->
-                publishMessage("1500", "kitchen/gas/gasThreshold")
-        );
-
-        button2.setOnClickListener(v -> showImageDialog()
-//                publishMessage("3000", "kitchen/gas/gasThreshold")
-        );
-
-        button3.setOnClickListener(v ->
-                publishMessage("4095", "kitchen/gas/gasThreshold")
-        );
-//        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-//        bottomNav.setOnItemSelectedListener(item -> {
-//            int itemId = item.getItemId();
-//            if (itemId == R.id.nav_home) {
-//                // Handle home click
-//                return true;
-//            } else if (itemId == R.id.nav_device) {
-//                // Handle device click
-//                return true;
-//            } else if (itemId == R.id.nav_voice) {
-//                return true;
-//            } else if (itemId == R.id.nav_routine) {
-//                return true;
-//            } else if (itemId == R.id.nav_stats) {
-//                return true;
-//            }
-//            return false;
-//        });
-
-//        Button btnPublish = findViewById(R.id.btn_publish);
-//        btnPublish.setOnClickListener(v -> {
-//            // Gửi tin nhắn lên broker
-//            publishMessage("Hello from Android!");
-//        });
     }
 
     private void connectMqtt() {
@@ -217,17 +174,7 @@ public class MainActivity extends AppCompatActivity {
                             } else if (message.contains("{\"smoke_detected\":true}")) {
                                 runOnUiThread(() -> {
                                     showImageDialog();
-                                    // Tạo AlertDialog Builder
-//                                    new AlertDialog.Builder(MainActivity.this)
-//                                            .setTitle("Cảnh báo khói")
-//                                            .setMessage("Phát hiện khói! Vui lòng kiểm tra ngay.")
-//                                            .setIcon(android.R.drawable.ic_dialog_alert) // Icon mặc định
-//                                            .setPositiveButton("OK", (dialog, which) -> {
-//                                                // Hành động khi bấm OK, nếu cần
-//                                                dialog.dismiss();
-//                                            })
-//                                            .setCancelable(false) // Không cho phép tắt bằng cách bấm ra ngoài
-//                                            .show();
+
                                 });
                             }
                             break;
