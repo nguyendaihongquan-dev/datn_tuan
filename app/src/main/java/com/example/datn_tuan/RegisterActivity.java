@@ -11,19 +11,20 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_screen);
+        setContentView(R.layout.register_screen);
         mAuth = FirebaseAuth.getInstance();
 
         EditText emailEditText = findViewById(R.id.emailEditText);
         EditText passwordEditText = findViewById(R.id.passwordEditText);
-        Button loginButton = findViewById(R.id.btn_login);
-        TextView createAccountTextView = findViewById(R.id.createAccountTextView);
-        loginButton.setOnClickListener(v -> {
+        Button registerButton = findViewById(R.id.btn_register);
+
+        registerButton.setOnClickListener(v -> {
             String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
 
@@ -37,25 +38,24 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            // Authenticate user
-            mAuth.signInWithEmailAndPassword(email, password)
+            // Create new account
+            mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            // Sign in success
-                            Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                            finish(); // Quay lại màn hình đăng nhập
                         } else {
-                            // If sign in fails
-                            Toast.makeText(this, "Đăng nhập thất bại: " + task.getException().getMessage(),
+                            Toast.makeText(this, "Đăng ký thất bại: " + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
         });
-        createAccountTextView.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        TextView backToLoginTextView = findViewById(R.id.backToLoginTextView);
+        backToLoginTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
+            finish();
         });
+
     }
 }

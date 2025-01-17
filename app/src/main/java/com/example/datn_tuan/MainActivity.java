@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static List<String> listTopic = Arrays.asList("living/humidity", "living/temperature", "living/light", "living/stair", "door/control", "BaoChay", "bedroom/temperature", "bedroom/humidity", "bedroom/curtain", "bedroom/light", "bedroom/fan", "kitchen/gas/gasThreshold", "kitchen/gas/warning");
     private Mqtt5BlockingClient client;
     private StorageReference mStorageRef;
-
+//    {"smoke_detected":true} bản tin canhr báo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -6,7 +6,7 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="register">Đăng ký</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
@@ -44,6 +44,9 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="login">Đăng nhập</string>
+    <string name="create_your_account">Tạo tài khoản của bạn</string>
+    <string name="already_have_an_account_login">Đã có tài khoản? Đăng nhập</string>
+    <string name="logo_register">Logo đăng ký</string>
     <string name="login_to_your_account">Đăng nhập vào tài khoản của bạn</string>
     <string name="email">Tên tài khoản</string>
     <string name="enter_your_email">Nhập email của bạn</string>
