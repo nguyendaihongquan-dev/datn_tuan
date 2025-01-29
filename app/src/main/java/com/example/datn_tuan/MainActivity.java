@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private static String humiLiving = "0";
     private static String tempBedRoom = "0";
     private static String humiBedRoom = "0";
-    private static List<String> listTopic = Arrays.asList("living/humidity", "living/temperature", "living/light", "living/stair", "door/control", "BaoChay", "bedroom/temperature", "bedroom/humidity", "bedroom/curtain", "bedroom/light", "bedroom/fan", "kitchen/gas/gasThreshold", "kitchen/gas/warning");
+    private static String gasValue = "0";
+    private static List<String> listTopic = Arrays.asList("living/humidity", "living/temperature", "living/light", "living/stair", "door/control", "BaoChay", "bedroom/temperature", "bedroom/humidity", "bedroom/curtain", "bedroom/light", "bedroom/fan", "kitchen/gas/gasThreshold", "kitchen/gas/warning","kitchen/gas/value");
     private Mqtt5BlockingClient client;
     private StorageReference mStorageRef;
 //    {"smoke_detected":true} bản tin canhr báo
@@ -100,6 +101,27 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(v -> {
                     String gas = gasValue.getText().toString().trim();
                     publishMessage(gas, "kitchen/gas/gasThreshold");
+                }
+        );
+        Button btnMuc0 = findViewById(R.id.btn_muc_0);
+        Button btnMuc1 = findViewById(R.id.btn_muc_1);
+        Button btnMuc2 = findViewById(R.id.btn_muc_2);
+        Button btnMuc3 = findViewById(R.id.btn_muc_3);
+
+        btnMuc0.setOnClickListener(v -> {
+                    publishMessage("0", "bedroom/curtain");
+                }
+        );
+        btnMuc1.setOnClickListener(v -> {
+                    publishMessage("1", "bedroom/curtain");
+                }
+        );
+        btnMuc2.setOnClickListener(v -> {
+                    publishMessage("2", "bedroom/curtain");
+                }
+        );
+        btnMuc3.setOnClickListener(v -> {
+                    publishMessage("3", "bedroom/curtain");
                 }
         );
 
@@ -172,10 +194,7 @@ public class MainActivity extends AppCompatActivity {
                                             .show();
                                 });
                             } else if (message.contains("{\"smoke_detected\":true}")) {
-                                runOnUiThread(() -> {
-                                    showImageDialog();
-
-                                });
+                                runOnUiThread(this::showImageDialog);
                             }
                             break;
                         case "bedroom/light":
@@ -221,7 +240,10 @@ public class MainActivity extends AppCompatActivity {
                             TextView textHumiBedRoom = findViewById(R.id.humiBedRoom);
                             textHumiBedRoom.setText(message);
                             break;
-
+                        case "kitchen/gas/value" :
+                            TextView textGasValue = findViewById(R.id.valueGasSensor);
+                            textGasValue.setText(message);
+                            break;
                         case "kitchen/gas/warning":
                             if (message.contains("true")) {
                                 runOnUiThread(() -> {
