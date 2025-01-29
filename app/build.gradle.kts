@@ -1,8 +1,6 @@
-
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
-
 }
 
 android {
@@ -43,26 +41,30 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.storage)
+
+    // Firebase BOM (Bill of Materials)
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+
+    // Firebase dependencies
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-appcheck-playintegrity")
+    implementation("com.google.firebase:firebase-appcheck")
+
+    // Other dependencies
+    implementation("com.hivemq:hivemq-mqtt-client:1.3.0")
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation ("com.hivemq:hivemq-mqtt-client:1.3.0")
-    implementation ("androidx.cardview:cardview:1.0.0")
-    implementation ("com.squareup.picasso:picasso:2.71828")
-
-    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
-//    implementation ("com.google.android.material:material:1.5.0")
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
-//    implementation("org.eclipse.paho:org.eclipse.paho.android.service:1.1.1")
-//    implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
-
-
 }
