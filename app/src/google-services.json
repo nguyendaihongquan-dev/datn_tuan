@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "418690188641",
+    "firebase_url": "https://esp32cam-e747d-default-rtdb.firebaseio.com",
+    "project_id": "esp32cam-e747d",
+    "storage_bucket": "esp32cam-e747d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418690188641:android:9d51265164bd952a03f120",
+        "android_client_info": {
+          "package_name": "com.example.datn_tuan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHO-gymzcM_L3GiDgV6ukq5ZvwQI8JbBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
