@@ -180,19 +180,20 @@ public class MainActivity extends AppCompatActivity {
                                 SwitchCompat switchCompat = findViewById(R.id.livingDoor);
                                 switchCompat.setChecked(true);
                             } else if (message.contains("{\"fire_detected\":true}")) {
-                                runOnUiThread(() -> {
-                                    // Tạo AlertDialog Builder
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setTitle("Cảnh báo hỏa hoạn")
-                                            .setMessage("Phát hiện cháy! Vui lòng kiểm tra ngay.")
-                                            .setIcon(android.R.drawable.ic_dialog_alert) // Icon mặc định
-                                            .setPositiveButton("OK", (dialog, which) -> {
-                                                // Hành động khi bấm OK, nếu cần
-                                                dialog.dismiss();
-                                            })
-                                            .setCancelable(false) // Không cho phép tắt bằng cách bấm ra ngoài
-                                            .show();
-                                });
+//                                runOnUiThread(() -> {
+//                                    // Tạo AlertDialog Builder
+//                                    new AlertDialog.Builder(MainActivity.this)
+//                                            .setTitle("Cảnh báo hỏa hoạn")
+//                                            .setMessage("Phát hiện cháy! Vui lòng kiểm tra ngay.")
+//                                            .setIcon(android.R.drawable.ic_dialog_alert) // Icon mặc định
+//                                            .setPositiveButton("OK", (dialog, which) -> {
+//                                                // Hành động khi bấm OK, nếu cần
+//                                                dialog.dismiss();
+//                                            })
+//                                            .setCancelable(false) // Không cho phép tắt bằng cách bấm ra ngoài
+//                                            .show();
+//                                });
+                                runOnUiThread(this::showImageDialog);
                             } else if (message.contains("{\"smoke_detected\":true}")) {
                                 runOnUiThread(this::showImageDialog);
                             }
