@@ -54,6 +54,6 @@
     <string name="password">Mật khẩu</string>
     <string name="enter_your_password">Nhập mật khẩu của bạn</string>
     <string name="don_t_have_an_account_create_account">Bạn không có tài khoản? Đăng ký ngay</string>
-    <string name="confirm_password">Xác nhận mật khẩu\n</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
     <string name="re_enter_your_password">Nhập lại mật khẩu</string>
 </resources>

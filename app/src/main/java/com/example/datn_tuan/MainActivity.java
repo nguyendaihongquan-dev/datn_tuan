@@ -3,6 +3,7 @@ package com.example.datn_tuan;
 import static com.hivemq.client.mqtt.MqttGlobalPublishFilter.ALL;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 //
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MQTT_CLIENT";
@@ -124,9 +128,32 @@ public class MainActivity extends AppCompatActivity {
                     publishMessage("3", "bedroom/curtain");
                 }
         );
+        CircleImageView avatarImageView = findViewById(R.id.avatarImageView);
+
+        avatarImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
 
     }
+    private void logout() {
+        // Xóa dữ liệu đăng nhập (ví dụ: SharedPreferences)
+        getSharedPreferences("user_prefs", MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply();
 
+        // Hiển thị thông báo
+        Toast.makeText(this, "Đã đăng xuất", Toast.LENGTH_SHORT).show();
+
+        // Chuyển về màn hình đăng nhập
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
     private void connectMqtt() {
         try {
             client = MqttClient.builder()

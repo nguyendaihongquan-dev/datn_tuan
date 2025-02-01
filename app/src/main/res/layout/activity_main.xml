@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@android:color/white"
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
@@ -36,6 +37,7 @@
                     android:layout_centerVertical="true"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatarImageView"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
@@ -44,6 +46,14 @@
             </RelativeLayout>
 
             <!-- Stats Card -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phòng khách"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,153 +114,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-            <!-- Quick Actions Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thông số"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
-
-                <!-- Wake up card -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#1E88E5">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
-
-                        <!-- Temperature -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Nhiệt độ"
-                                android:textColor="#FFFFFF"/>
-
-                            <TextView
-                                android:id="@+id/tempBedRoom"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="25°C"
-                                android:textColor="#FFFFFF"
-                                android:textSize="18sp"
-                                android:textStyle="bold"/>
-                        </LinearLayout>
-
-                        <!-- Humidity -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Độ ẩm"
-                                android:textColor="#FFFFFF"/>
-
-                            <TextView
-                                android:id="@+id/humiBedRoom"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="80%"
-                                android:textColor="#FFFFFF"
-                                android:textSize="18sp"
-                                android:textStyle="bold"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- Sleep card -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginHorizontal="4dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#1E88E5">
-
-                    <!-- Similar layout as Wake up card -->
-                </androidx.cardview.widget.CardView>
-
-                <!-- Clean card -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#1E88E5">
-
-                    <!-- Similar layout as Wake up card -->
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-            <TextView
-                android:id="@+id/valueGasSensor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:paddingBottom= "20dp"
-                android:text="Giá trị khí gas : 0"
-                android:textColor="#666666"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom= "20dp"
-                android:orientation="horizontal">
-
-                <!-- EditText -->
-                <EditText
-                    android:id="@+id/valueGas"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="3"
-                    android:background="@drawable/outline_input_border"
-                    android:hint="Thiết lập giá trị cảnh báo"
-                    android:inputType="textEmailAddress" />
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="35dp"/>
-
-                <!-- Button -->
-                <Button
-                    android:id="@+id/sendValue"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="2"
-                    android:text="Thiết lập"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/button_style" />
-            </LinearLayout>
-            <!-- Active Devices Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Quản lý thiết bị"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -365,6 +228,194 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Đèn cầu thang"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phòng khách"
+                            android:textColor="#666666"/>
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/stairLiving"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"/>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Smart TV Device Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="12dp">
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:padding="16dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="24dp"-->
+<!--                            android:layout_height="24dp"-->
+<!--                            android:src="@drawable/cctv"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Báo cháy"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:layout_marginTop="8dp"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Phòng&#45;&#45;"-->
+<!--                            android:textColor="#666666"/>-->
+<!--                        <androidx.appcompat.widget.SwitchCompat-->
+<!--                            android:id="@+id/buttonFire"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="8dp"/>-->
+
+<!--                    </LinearLayout>-->
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <!-- Quick Actions Section -->
+<!--            Phòng ngủ-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phòng ngủ"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp">
+
+                <!-- Wake up card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#1E88E5">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <!-- Temperature -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Nhiệt độ"
+                                android:textColor="#FFFFFF"/>
+
+                            <TextView
+                                android:id="@+id/tempBedRoom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="25°C"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <!-- Humidity -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Độ ẩm"
+                                android:textColor="#FFFFFF"/>
+
+                            <TextView
+                                android:id="@+id/humiBedRoom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="80%"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Sleep card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="4dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#1E88E5">
+
+                    <!-- Similar layout as Wake up card -->
+                </androidx.cardview.widget.CardView>
+
+                <!-- Clean card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#1E88E5">
+
+                    <!-- Similar layout as Wake up card -->
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal">
+
+                <!-- AC Device Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/light"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="Đèn"
                             android:textSize="16sp"
                             android:layout_marginTop="8dp"/>
@@ -423,53 +474,67 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phòng bếp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+            <TextView
+                android:id="@+id/valueGasSensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:paddingBottom= "20dp"
+                android:text="Giá trị khí gas : 0"
+                android:textColor="#666666"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom= "20dp"
+                android:orientation="horizontal">
+
+                <!-- EditText -->
+
+                <EditText
+                    android:id="@+id/valueGas"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/outline_input_border"
+                    android:hint="Thiết lập giá trị cảnh báo"
+                    android:inputType="textEmailAddress" />
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="35dp"/>
+
+                <!-- Button -->
+                <Button
+                    android:id="@+id/sendValue"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="2"
+                    android:text="Thiết lập"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/button_style" />
+            </LinearLayout>
+            <!-- Active Devices Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quản lý thiết bị"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:orientation="horizontal">
 
-                <!-- AC Device Card -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    app:cardCornerRadius="12dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/light"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Đèn cầu thang"
-                            android:textSize="16sp"
-                            android:layout_marginTop="8dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Phòng --"
-                            android:textColor="#666666"/>
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/stairLiving"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"/>
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Smart TV Device Card -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -502,17 +567,61 @@
                             android:textColor="#666666"/>
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/buttonFire"
+                            android:checked="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"/>
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+                <!-- AC Device Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="12dp">
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:padding="16dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="24dp"-->
+<!--                            android:layout_height="24dp"-->
+<!--                            android:src="@drawable/light"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Đèn cầu thang"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:layout_marginTop="8dp"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Phòng &#45;&#45;"-->
+<!--                            android:textColor="#666666"/>-->
+<!--                        <androidx.appcompat.widget.SwitchCompat-->
+<!--                            android:id="@+id/stairLiving"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="8dp"/>-->
+
+<!--                    </LinearLayout>-->
+                </androidx.cardview.widget.CardView>
+
+                <!-- Smart TV Device Card -->
+
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Điều khiển rèm"
+                android:text="Điều khiển rèm theo mức"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -527,28 +636,28 @@
                     android:id="@+id/btn_muc_0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mức 0"
+                    android:text="0"
                     android:layout_margin="2dp"/>
 
                 <Button
                     android:id="@+id/btn_muc_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mức 1"
+                    android:text="1"
                     android:layout_margin="2dp"/>
 
                 <Button
                     android:id="@+id/btn_muc_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mức 2"
+                    android:text="2"
                     android:layout_margin="2dp"/>
 
                 <Button
                     android:id="@+id/btn_muc_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mức 3"
+                    android:text="3"
                     android:layout_margin="2dp"/>
 
             </LinearLayout>
