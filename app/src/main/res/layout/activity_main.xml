@@ -151,11 +151,12 @@
                             android:layout_height="wrap_content"
                             android:text="Phòng khách"
                             android:textColor="#666666"/>
+
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/livingLight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"/>
+                            android:layout_marginTop="8dp" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -477,6 +478,52 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Điều khiển rèm theo mức"
+                android:textSize="20sp"
+                android:layout_marginBottom="16dp"/>
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_muc_0"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_margin="2dp"/>
+
+                <Button
+                    android:id="@+id/btn_muc_1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:layout_margin="2dp"/>
+
+                <Button
+                    android:id="@+id/btn_muc_2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:layout_margin="2dp"/>
+
+                <Button
+                    android:id="@+id/btn_muc_3"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:layout_margin="2dp"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Phòng bếp"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -618,51 +665,14 @@
                 <!-- Smart TV Device Card -->
 
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
+
+
+            <Button
+                android:id="@+id/test_log"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Điều khiển rèm theo mức"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/btn_muc_0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:layout_margin="2dp"/>
-
-                <Button
-                    android:id="@+id/btn_muc_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    android:layout_margin="2dp"/>
-
-                <Button
-                    android:id="@+id/btn_muc_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2"
-                    android:layout_margin="2dp"/>
-
-                <Button
-                    android:id="@+id/btn_muc_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3"
-                    android:layout_margin="2dp"/>
-
-            </LinearLayout>
-
-
+                android:text="Test"
+                android:layout_margin="2dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

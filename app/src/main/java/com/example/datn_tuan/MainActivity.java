@@ -137,6 +137,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button buttonTest = findViewById(R.id.test_log);
+
+
+        buttonTest.setOnClickListener(v -> {
+            showImageDialog();
+                }
+        );
+
     }
     private void logout() {
         // Xóa dữ liệu đăng nhập (ví dụ: SharedPreferences)
@@ -254,19 +262,19 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case "living/temperature":
                             TextView textTempLiving = findViewById(R.id.tempLiving);
-                            textTempLiving.setText(message);
+                            textTempLiving.setText(message+"°C");
                             break;
                         case "living/humidity":
                             TextView textHumiLiving = findViewById(R.id.humiLiving);
-                            textHumiLiving.setText(message);
+                            textHumiLiving.setText(message+"%");
                             break;
                         case "bedroom/temperature":
                             TextView textTempBedRoom = findViewById(R.id.tempBedRoom);
-                            textTempBedRoom.setText(message);
+                            textTempBedRoom.setText(message+"°C");
                             break;
                         case "bedroom/humidity":
                             TextView textHumiBedRoom = findViewById(R.id.humiBedRoom);
-                            textHumiBedRoom.setText(message);
+                            textHumiBedRoom.setText(message+"%");
                             break;
                         case "kitchen/gas/value" :
                             TextView textGasValue = findViewById(R.id.valueGasSensor);
